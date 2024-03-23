@@ -5,7 +5,7 @@ const event_req= async (req,res,next)=>{
         req.body = result
         next();
     }catch(err){
-        res.json(err)
+        res.json(err);
     }
 }
 const ev_category_req= async (req,res,next)=>{
@@ -14,7 +14,16 @@ const ev_category_req= async (req,res,next)=>{
         req.body = result
         next();
     }catch(err){
-        res.json(err)
+        res.json(err);
     }
 }
-module.exports={event_req,ev_category_req}
+const prayer_surp_req= async (req,res,next)=>{
+    try{
+        const result = await schema.prayer_support.validateAsync(req.body,{abortEarly:false});
+        req.body = result
+        next();
+    }catch(err){
+        res.json(err);
+    }
+}
+module.exports={prayer_surp_req,event_req,ev_category_req}
