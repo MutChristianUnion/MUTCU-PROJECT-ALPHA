@@ -11,6 +11,11 @@ const events_schema = joi.object({
 
 const event_category = joi.object({
     TITLE:joi.string().required()
-})
+});
 
-module.exports = { events_schema, event_category}
+const prayer_support= joi.object({
+    SENDER_NAMES:joi.string().required(),
+    SENDER_ADDRESS:joi.string().required(),
+    REQUEST:joi.string().required()
+});
+module.exports = {prayer_support, events_schema, event_category}
