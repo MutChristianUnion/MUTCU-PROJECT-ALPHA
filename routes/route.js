@@ -8,24 +8,7 @@ const {Authenticate, Access_token, Refresh_token} = require("../middleware/autho
 const auth = require('../middleware/authorization')
 const router = express.Router();
 
-router.get('/',(req,res)=>{
-  const user = {
-    id: 1,
-    username: "john.doe",
-  };
-
-  const accessToken = Access_token({user})
-  const refreshToken = Refresh_token({user})
-
-  res
-    .cookie("refresh_token", refreshToken, { httpOnly: true, sameSite: 'strict' })
-    .header("Authorization", accessToken)
-    .send(user);
-});
 router.use(auth.Authenticate)
-router.get('/fake',(req,res)=>{
-  res.send(" i have bee  a success for you all")
-})
 router.post('/event',validate.event_req,event.create,db.add);
 router.get('/events',event.events,db.get);
 router.route('/event/:id').patch(validate.event_req,event.edit,db.edit)

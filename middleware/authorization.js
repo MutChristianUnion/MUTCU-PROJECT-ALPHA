@@ -1,23 +1,12 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 class Authorise {
-  #access_token = (user) => {
+  Access_token = (user) => {
     console.log("gerattion accessToken")
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "15m",
     });
   };
-  #refresh_token=(user)=> {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: process.env.EX_DATE,
-    });
-  }
-
-  Access_token=(user)=>{
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "1m",
-    });
-  }
 
   Refresh_token=(user) =>{
     return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
@@ -50,7 +39,7 @@ class Authorise {
         );
         console.log(decode.user);
         const user = decode.user;
-        const AccessToken = this.#access_token({ user: user });
+        const AccessToken = this.Access_token({ user: user });
         res
           .cookie("refresh_token", RefreshToken,{ httpOnly: true, sameSite: 'strict' })
           .header("Authorization", AccessToken)
